@@ -19,7 +19,7 @@ export const LandingHeader: React.FC = () => {
         {/* Navigation & Launch */}
         <div className="flex items-center space-x-4">
           <a
-            href="https://web3.okx.com/explorer/x-layer-testnet"
+            href="https://www.oklink.com/xlayer"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:flex items-center space-x-1 text-xs text-shiro-muted hover:text-white transition-colors"

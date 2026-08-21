@@ -432,10 +432,10 @@ export const TerminalChat: React.FC = () => {
   return (
     <div className="flex flex-col h-full w-full relative bg-[#080808] rounded-2xl overflow-hidden">
       {/* Scrollable Conversation Stream */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-6 w-full">
+      <div className="flex-1 overflow-y-auto px-2.5 sm:px-6 lg:px-8 py-4 sm:py-6 w-full">
         {messages.length === 0 ? (
           /* Empty Welcome State */
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-8 my-auto py-12">
+          <div className="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-4 sm:space-y-8 my-auto py-6 sm:py-12">
             <div className="space-y-3">
               <div className="w-12 h-12 rounded-2xl bg-[#111111] flex items-center justify-center mx-auto shadow-sm">
                 <span className="font-mono text-xl text-white font-medium">白</span>
@@ -444,7 +444,7 @@ export const TerminalChat: React.FC = () => {
                 How can I help you trade on X Layer today?
               </h2>
               <p className="text-xs text-[#888888] font-light max-w-md mx-auto leading-relaxed">
-                Describe any trade, schedule recurring DCA orders, or rebalance your onchain portfolio in natural language.
+                Describe any trade, wrap native OKB, or audit your onchain portfolio in natural language.
               </p>
             </div>
 
@@ -649,7 +649,7 @@ export const TerminalChat: React.FC = () => {
 
                             {m.txHash && (
                               <a
-                                href={`https://web3.okx.com/explorer/x-layer-testnet/tx/${m.txHash}`}
+                                href={`https://www.oklink.com/xlayer/tx/${m.txHash}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-[11px] font-mono text-[#888888] hover:text-white flex items-center gap-1 underline"

@@ -5,10 +5,14 @@ import { LandingHeader } from "@/components/LandingHeader";
 import {
   Zap,
   ShieldCheck,
-  Repeat,
+  RefreshCw,
   ArrowRight,
   ExternalLink,
-  MessageSquare
+  MessageSquare,
+  Layers,
+  PieChart,
+  CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -18,17 +22,23 @@ export default function LandingPage() {
       <LandingHeader />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden w-full">
+      <section className="relative pt-20 sm:pt-28 pb-16 sm:pb-24 overflow-hidden w-full">
         <div className="w-full px-4 sm:px-8 lg:px-16 relative z-10">
           <div className="text-center max-w-4xl mx-auto space-y-6">
+            {/* Network Badge */}
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#111111] border border-white/[0.08] text-xs font-mono text-[#CCCCCC]">
+              <span className="w-2 h-2 rounded-full bg-okx animate-pulse"></span>
+              <span>Live on X Layer Mainnet (Chain ID: 196)</span>
+            </div>
+
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.12]">
               Autonomous <span className="font-medium text-white">Intent-Driven DeFi</span> on X Layer
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg lg:text-xl text-shiro-muted font-light leading-relaxed max-w-3xl mx-auto">
-              Execute atomic multi-hop swaps, schedule non-custodial DCA orders, and manage onchain portfolios through simple conversation. Routed directly through the <span className="text-white font-medium">OKX DEX aggregator</span>.
+            <p className="text-base sm:text-lg lg:text-xl text-[#999999] font-light leading-relaxed max-w-3xl mx-auto">
+              Execute instant DEX swaps, wrap native OKB with zero slippage, and run onchain portfolio audits through simple conversation. Powered by <span className="text-white font-medium">Groq LPUs</span> and routed via the <span className="text-white font-medium">OKX DEX Aggregator</span>.
             </p>
 
             {/* Primary Action Buttons */}
@@ -37,83 +47,92 @@ export default function LandingPage() {
                 href="/chat"
                 className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white hover:bg-slate-200 text-black font-medium text-sm transition-all flex items-center justify-center gap-2"
               >
-                <span>Start Chatting</span>
+                <span>Launch Shiro AI</span>
                 <ArrowRight className="w-4 h-4 text-black" />
               </Link>
 
               <a
-                href="https://web3.okx.com/explorer/x-layer-testnet"
+                href="https://www.oklink.com/xlayer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#111111] hover:bg-[#161616] text-shiro-muted hover:text-white text-sm font-light transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#111111] hover:bg-[#161616] text-[#888888] hover:text-white text-sm font-light transition-all flex items-center justify-center gap-2 border border-white/[0.06]"
               >
-                <span>Verified Contracts</span>
-                <ExternalLink className="w-3.5 h-3.5 text-shiro-subtle" />
+                <span>OKLink Explorer</span>
+                <ExternalLink className="w-3.5 h-3.5 text-[#666666]" />
               </a>
             </div>
           </div>
 
-          {/* Live execution surface */}
-          <div className="mt-14 max-w-5xl mx-auto rounded-2xl bg-[#101010] overflow-hidden shadow-2xl">
-            <div className="px-6 py-3.5 bg-black flex items-center justify-between">
+          {/* Interactive Terminal Mockup */}
+          <div className="mt-14 max-w-4xl mx-auto rounded-2xl bg-[#0E0E0E] border border-white/[0.08] overflow-hidden shadow-2xl">
+            <div className="px-5 py-3.5 bg-[#080808] border-b border-white/[0.06] flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="flex space-x-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-shiro-subtle"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-shiro-subtle"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-shiro-subtle"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#222222]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#222222]"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#222222]"></div>
                 </div>
-                <span className="text-xs font-mono text-shiro-muted pl-2">
-                  live_routes@xlayer-zkEVM
+                <span className="text-xs font-mono text-[#888888] pl-2">
+                  shiro_intent_engine@xlayer-mainnet
                 </span>
               </div>
-              <span className="text-[10px] font-light px-2 py-0.5 rounded-full bg-[#161616] text-shiro-muted">
-                Live Services Required
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#141414] text-okx flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-okx"></span>
+                <span>Sub-300ms Groq LPU</span>
               </span>
             </div>
 
-            <div className="p-6 sm:p-8 space-y-6">
-              <div className="p-6 rounded-xl bg-black space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-white/[0.04]">
+            <div className="p-5 sm:p-7 space-y-4">
+              {/* Sample User Prompt */}
+              <div className="flex justify-end">
+                <div className="bg-[#181818] text-white rounded-2xl px-4 py-2.5 text-xs sm:text-sm font-light border border-white/[0.06]">
+                  &quot;Swap 0.05 OKB into USDC with 0.5% slippage on Mainnet&quot;
+                </div>
+              </div>
+
+              {/* Sample AI Execution Card */}
+              <div className="p-4 rounded-xl bg-black border border-white/[0.06] space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
                   <div className="flex items-center space-x-2">
-                    <MessageSquare className="w-4 h-4 text-okx" />
-                    <span className="text-xs font-mono font-medium text-white">
-                      Intent parsing and quotes use live providers only
+                    <span className="w-2 h-2 rounded-full bg-okx"></span>
+                    <span className="text-xs font-mono font-medium text-white uppercase tracking-wider">
+                      SWAP Intent (X Layer zkEVM)
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-shiro-muted">
-                    No demo fallbacks
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#161616] text-[#888888]">
+                    Risk: LOW (Optimal Route)
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
                   <div>
-                    <span className="text-shiro-subtle text-[11px] block font-light">Intent</span>
-                    <span className="text-white font-medium mt-0.5 block">Groq JSON</span>
+                    <span className="text-[#555555] text-[11px] block font-light">Input</span>
+                    <span className="text-white font-medium mt-0.5 block">0.05 OKB</span>
                   </div>
                   <div>
-                    <span className="text-shiro-subtle text-[11px] block font-light">Quote</span>
-                    <span className="text-white font-medium mt-0.5 block">OKX DEX API</span>
+                    <span className="text-[#555555] text-[11px] block font-light">Output</span>
+                    <span className="text-white font-medium mt-0.5 block">~2.42 USDC</span>
                   </div>
                   <div>
-                    <span className="text-shiro-subtle text-[11px] block font-light">Execution</span>
-                    <span className="text-slate-300 font-light mt-0.5 block">Real calldata</span>
+                    <span className="text-[#555555] text-[11px] block font-light">Routing</span>
+                    <span className="text-slate-300 font-light mt-0.5 block">OKX Aggregator</span>
                   </div>
                   <div>
-                    <span className="text-shiro-subtle text-[11px] block font-light">Failure Mode</span>
-                    <span className="text-slate-300 font-light mt-0.5 block truncate">Explicit error</span>
+                    <span className="text-[#555555] text-[11px] block font-light">Slippage</span>
+                    <span className="text-slate-300 font-light mt-0.5 block">0.50%</span>
                   </div>
                 </div>
 
-                <div className="pt-2 flex items-center justify-between">
-                  <span className="text-[11px] text-shiro-muted font-light">
-                    Missing live credentials disable intent and quote actions.
+                <div className="pt-2 flex items-center justify-between border-t border-white/[0.04]">
+                  <span className="text-[11px] text-[#777777] font-light">
+                    Canonical contracts verified on X Layer Mainnet.
                   </span>
                   <Link
                     href="/chat"
-                    className="px-4 py-2 rounded-lg bg-white hover:bg-slate-200 text-black font-medium text-xs transition-all flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-lg bg-white hover:bg-slate-200 text-black font-medium text-xs transition-all flex items-center gap-1.5"
                   >
-                    <span>Open in Chat</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-black" />
+                    <span>Try in Copilot</span>
+                    <ArrowRight className="w-3 h-3 text-black" />
                   </Link>
                 </div>
               </div>
@@ -123,81 +142,81 @@ export default function LandingPage() {
       </section>
 
       {/* Metrics Ticker */}
-      <section className="py-12 bg-[#0B0B0B] w-full">
-        <div className="w-full px-4 sm:px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-6xl mx-auto">
+      <section className="py-12 bg-[#090909] border-y border-white/[0.04] w-full">
+        <div className="w-full px-4 sm:px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center max-w-6xl mx-auto">
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-medium font-mono text-white">&lt; 450ms</div>
-            <div className="text-xs sm:text-sm text-shiro-muted font-light">AI Response Time</div>
+            <div className="text-2xl sm:text-4xl font-medium font-mono text-white">&lt; 300ms</div>
+            <div className="text-xs sm:text-sm text-[#777777] font-light">Groq LPU Inference</div>
           </div>
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-medium font-mono text-white">100%</div>
-            <div className="text-xs sm:text-sm text-shiro-muted font-light">Non-Custodial Security</div>
+            <div className="text-2xl sm:text-4xl font-medium font-mono text-white">100%</div>
+            <div className="text-xs sm:text-sm text-[#777777] font-light">Non-Custodial (Your Keys)</div>
           </div>
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-medium font-mono text-white">X Layer Native</div>
-            <div className="text-xs sm:text-sm text-shiro-muted font-light">zkEVM Speed &amp; Low Fees</div>
+            <div className="text-2xl sm:text-4xl font-medium font-mono text-white">0% Slippage</div>
+            <div className="text-xs sm:text-sm text-[#777777] font-light">Canonical WOKB Wrapper</div>
           </div>
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-medium font-mono text-white">&lt; 0.05%</div>
-            <div className="text-xs sm:text-sm text-shiro-muted font-light">Avg OKX DEX Price Impact</div>
+            <div className="text-2xl sm:text-4xl font-medium font-mono text-white">Mainnet 196</div>
+            <div className="text-xs sm:text-sm text-[#777777] font-light">Live zkEVM Settlement</div>
           </div>
         </div>
       </section>
 
-      {/* 4 Clean Core Pillars */}
-      <section className="py-24 w-full">
+      {/* 4 Core Pillars */}
+      <section className="py-20 sm:py-28 w-full">
         <div className="w-full px-4 sm:px-8 lg:px-16 space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 className="text-xs font-mono font-medium uppercase tracking-widest text-shiro-muted">
-              Core Capabilities
+            <h2 className="text-xs font-mono font-medium uppercase tracking-widest text-[#777777]">
+              Engineered for X Layer
             </h2>
             <p className="text-3xl sm:text-4xl font-light text-white">
-              DeFi Made Simple Through Conversation
+              Instant DeFi Execution via Natural Language
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {/* Pillar 1: Conversational Swaps */}
-            <div className="p-7 rounded-2xl bg-[#101010] space-y-3.5 hover:bg-[#141414] transition-all">
-              <div className="w-9 h-9 rounded-lg bg-black flex items-center justify-center text-shiro-muted">
-                <MessageSquare className="w-4 h-4" />
+            <div className="p-7 rounded-2xl bg-[#0E0E0E] border border-white/[0.06] space-y-3.5 hover:border-white/[0.12] transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#161616] flex items-center justify-center text-white">
+                <MessageSquare className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-base font-medium text-white">Conversational Swaps</h3>
-              <p className="text-xs text-shiro-muted font-light leading-relaxed">
-                Describe any trade in plain language. Groq AI evaluates your balance, computes slippage protection, and generates instant atomic execution calldata.
+              <h3 className="text-base font-medium text-white">Autonomous Swaps</h3>
+              <p className="text-xs text-[#888888] font-light leading-relaxed">
+                Describe any trade in plain language. Groq AI parses tokens, quantities, and slippage tolerances to prepare 1-click atomic execution.
               </p>
             </div>
 
             {/* Pillar 2: OKX DEX Aggregator */}
-            <div className="p-7 rounded-2xl bg-[#101010] space-y-3.5 hover:bg-[#141414] transition-all">
-              <div className="w-9 h-9 rounded-lg bg-black flex items-center justify-center text-shiro-muted">
-                <Zap className="w-4 h-4" />
+            <div className="p-7 rounded-2xl bg-[#0E0E0E] border border-white/[0.06] space-y-3.5 hover:border-white/[0.12] transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#161616] flex items-center justify-center text-white">
+                <Zap className="w-5 h-5 text-okx" />
               </div>
-              <h3 className="text-base font-medium text-white">OKX DEX Liquidity</h3>
-              <p className="text-xs text-shiro-muted font-light leading-relaxed">
-                Direct integration with the OKX DEX aggregator routes every transaction through optimal liquidity pools on X Layer for low fees and best rates.
+              <h3 className="text-base font-medium text-white">OKX DEX Routing</h3>
+              <p className="text-xs text-[#888888] font-light leading-relaxed">
+                Routinely queries the OKX DEX Aggregator across X Layer Mainnet liquidity pools for minimal price impact and ultra-low zkEVM gas fees.
               </p>
             </div>
 
-            {/* Pillar 3: Recurring DCA Schedules */}
-            <div className="p-7 rounded-2xl bg-[#101010] space-y-3.5 hover:bg-[#141414] transition-all">
-              <div className="w-9 h-9 rounded-lg bg-black flex items-center justify-center text-shiro-muted">
-                <Repeat className="w-4 h-4" />
+            {/* Pillar 3: Canonical OKB Wrapper */}
+            <div className="p-7 rounded-2xl bg-[#0E0E0E] border border-white/[0.06] space-y-3.5 hover:border-white/[0.12] transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#161616] flex items-center justify-center text-white">
+                <RefreshCw className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-base font-medium text-white">Automated DCA Schedules</h3>
-              <p className="text-xs text-shiro-muted font-light leading-relaxed">
-                Set recurring Dollar-Cost Averaging orders effortlessly. Decentralized keeper bots monitor onchain timestamps and execute cycles automatically on X Layer.
+              <h3 className="text-base font-medium text-white">1:1 OKB Wrapper</h3>
+              <p className="text-xs text-[#888888] font-light leading-relaxed">
+                Seamlessly wrap and unwrap native OKB $\leftrightarrow$ WOKB (0xe538...9b2b) directly onchain with exact 1:1 conversion and 0% slippage.
               </p>
             </div>
 
-            {/* Pillar 4: Non-Custodial Vault */}
-            <div className="p-7 rounded-2xl bg-[#101010] space-y-3.5 hover:bg-[#141414] transition-all">
-              <div className="w-9 h-9 rounded-lg bg-black flex items-center justify-center text-shiro-muted">
-                <ShieldCheck className="w-4 h-4" />
+            {/* Pillar 4: Portfolio Diagnostics */}
+            <div className="p-7 rounded-2xl bg-[#0E0E0E] border border-white/[0.06] space-y-3.5 hover:border-white/[0.12] transition-all">
+              <div className="w-10 h-10 rounded-xl bg-[#161616] flex items-center justify-center text-white">
+                <PieChart className="w-5 h-5 text-white" />
               </div>
-              <h3 className="text-base font-medium text-white">Non-Custodial Session Keys</h3>
-              <p className="text-xs text-shiro-muted font-light leading-relaxed">
-                Grant keepers time-bound and amount-limited session allowances without giving up custody. You can withdraw 100% of your funds at any time.
+              <h3 className="text-base font-medium text-white">Portfolio Doctor</h3>
+              <p className="text-xs text-[#888888] font-light leading-relaxed">
+                Real-time onchain wallet inspection, asset allocation diagnostics, pre-flight balance protection, and 1-click token import to MetaMask.
               </p>
             </div>
           </div>
@@ -205,20 +224,20 @@ export default function LandingPage() {
       </section>
 
       {/* Clean Call to Action */}
-      <section className="py-24 bg-[#0B0B0B] w-full">
+      <section className="py-20 sm:py-24 bg-[#090909] border-t border-white/[0.04] w-full">
         <div className="w-full px-4 sm:px-8 lg:px-16 text-center space-y-6 max-w-4xl mx-auto">
           <h3 className="text-3xl sm:text-5xl font-light text-white">
-            Experience the simplicity of onchain AI.
+            Experience the simplicity of conversational DeFi.
           </h3>
-          <p className="text-sm sm:text-base text-shiro-muted font-light max-w-xl mx-auto leading-relaxed">
-            No complex DEX interfaces. No manual calculations. Just tell Shiro what you want to achieve on X Layer.
+          <p className="text-sm sm:text-base text-[#888888] font-light max-w-xl mx-auto leading-relaxed">
+            No fragmented menus. No manual calculations. Speak your intent and let Shiro handle the onchain routing on X Layer.
           </p>
           <div className="pt-4">
             <Link
               href="/chat"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white hover:bg-slate-200 text-black font-medium text-sm transition-all"
             >
-              <span>Launch Shiro Chat</span>
+              <span>Launch Shiro Copilot</span>
               <ArrowRight className="w-4 h-4 text-black" />
             </Link>
           </div>
@@ -226,23 +245,23 @@ export default function LandingPage() {
       </section>
 
       {/* Clean Footer */}
-      <footer className="py-8 bg-black w-full">
-        <div className="w-full px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between text-xs font-light text-shiro-subtle gap-4 font-mono">
+      <footer className="py-8 bg-black border-t border-white/[0.04] w-full">
+        <div className="w-full px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between text-xs font-light text-[#666666] gap-4 font-mono">
           <div className="flex items-center space-x-3">
-            <div className="w-6 h-6 rounded bg-[#111111] flex items-center justify-center">
+            <div className="w-6 h-6 rounded bg-[#111111] flex items-center justify-center border border-white/[0.06]">
               <span className="text-white font-medium text-xs">白</span>
             </div>
             <span className="text-white font-medium">Shiro Protocol</span>
             <span>•</span>
-            <span className="text-shiro-muted font-light">X Layer zkEVM</span>
+            <span className="text-[#888888] font-light">X Layer zkEVM Mainnet</span>
           </div>
 
           <div className="flex items-center space-x-6">
             <Link href="/chat" className="hover:text-white transition-colors">
-              Chat
+              Copilot
             </Link>
             <a
-              href="https://web3.okx.com/explorer/x-layer-testnet"
+              href="https://www.oklink.com/xlayer"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white transition-colors"
@@ -250,12 +269,12 @@ export default function LandingPage() {
               OKLink Explorer
             </a>
             <a
-              href="https://www.okx.com/xlayer/faucet"
+              href="https://www.okx.com/xlayer"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white transition-colors"
             >
-              OKX Faucet
+              X Layer Official
             </a>
           </div>
         </div>
