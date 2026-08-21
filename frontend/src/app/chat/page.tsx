@@ -12,7 +12,7 @@ export default function ChatPage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("chat");
 
   return (
-    <div className="h-screen bg-[#080808] flex flex-col w-full overflow-hidden selection:bg-white/20 selection:text-white">
+    <div className="h-[100dvh] min-h-[100dvh] bg-[#080808] flex flex-col w-full overflow-hidden selection:bg-white/20 selection:text-white">
       {/* App Navigation Header */}
       <AppHeader
         activeTab={activeTab}

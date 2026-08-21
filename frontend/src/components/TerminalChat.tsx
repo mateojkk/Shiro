@@ -435,15 +435,15 @@ export const TerminalChat: React.FC = () => {
       <div className="flex-1 overflow-y-auto px-2.5 sm:px-6 lg:px-8 py-4 sm:py-6 w-full">
         {messages.length === 0 ? (
           /* Empty Welcome State */
-          <div className="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-4 sm:space-y-8 my-auto py-6 sm:py-12">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#111111] flex items-center justify-center mx-auto shadow-sm">
-                <span className="font-mono text-xl text-white font-medium">白</span>
+          <div className="min-h-full flex flex-col items-center justify-start sm:justify-center text-center max-w-2xl mx-auto space-y-4 sm:space-y-6 pt-2 pb-6 sm:py-10">
+            <div className="space-y-2.5">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#111111] border border-white/[0.06] flex items-center justify-center mx-auto shadow-sm shrink-0">
+                <span className="font-mono text-lg sm:text-xl text-white font-medium">白</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-light text-white tracking-tight">
+              <h2 className="text-lg sm:text-2xl font-light text-white tracking-tight px-2">
                 How can I help you trade on X Layer today?
               </h2>
-              <p className="text-xs text-[#888888] font-light max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-[#888888] font-light max-w-md mx-auto leading-relaxed px-4">
                 Describe any trade, wrap native OKB, or audit your onchain portfolio in natural language.
               </p>
             </div>
