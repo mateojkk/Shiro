@@ -1,0 +1,30 @@
+### Post 1: The Build Process & Testnet Launch (Thread)
+**Post 1/3:**
+Building Shiro for the OKX AI Season Hackathon has been an incredible deep-dive into intent-centric DeFi. Today, we are thrilled to announce that Shiro is officially live on the @XLayerOfficial Testnet! 🚀 
+
+**Post 2/3:**
+Our biggest architectural hurdle? Designing a non-custodial smart contract router (ShiroRouter) that can dynamically ingest complex DEX Aggregator calldata while gracefully handling testnet environment limitations. We engineered a seamless cross-decimal fallback mechanism to ensure 100% demo uptime. 🛠️
+
+**Post 3/3:**
+By combining the blazing-fast execution of X Layer with the reasoning capabilities of Groq’s LPU, we’ve created an AI Copilot that doesn't just read the market—it executes your exact intent on-chain. Try the testnet today! #OKXHackathon #Web3AI
+
+***
+
+### Post 2: The Current Stage (Highlighting the AI)
+We just finalized our submission for the OKX AI Season Hackathon! 🎉
+
+At its current stage, Shiro allows users to type natural language commands like "swap 0.01 okb to usdc" and instantly translates that into a hyper-optimized, gas-estimated on-chain transaction. 
+
+No more confusing DEX interfaces or manual slippage calculations. The AI parses your intent, the ShiroRouter secures the funds, and @XLayerOfficial provides the lightning-fast settlement. The future of DeFi is conversational. 💬⚡ 
+
+***
+
+### Post 3: The Future (Mainnet Vision)
+Shiro is live on the @XLayerOfficial Testnet today, but this is just the foundation. 🏗️
+
+Our immediate roadmap for Mainnet includes:
+🤖 Automated DCA & Limit Orders directly from the chat terminal
+🔀 Full integration with the live OKX DEX Aggregator API for optimal routing
+🛡️ Advanced portfolio risk auditing 
+
+The goal? A fully autonomous DeFi co-pilot that manages your portfolio while you sleep. The X Layer ecosystem is about to get a lot smarter. Stay tuned for our Mainnet deployment! 🌐🔮

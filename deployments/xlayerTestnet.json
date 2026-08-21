@@ -1,0 +1,16 @@
+{
+  "network": "xlayerTestnet",
+  "chainId": 1952,
+  "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "timestamp": "2026-08-20T16:03:32.494Z",
+  "contracts": {
+    "ShiroVault": "0xFCFE742e19790Dd67a627875ef8b45F17DB1DaC6",
+    "ShiroRouter": "0x398E4948e373Db819606A459456176D31C3B1F91",
+    "ShiroDCA": "0xbe18A1B61ceaF59aEB6A9bC81AB4FB87D56Ba167",
+    "USDC": "0x0F527785e39B22911946feDf580d87a4E00465f0",
+    "WETH": "0x1D3EDBa836caB11C26A186873abf0fFeB8bbaE63",
+    "USDT": "0x9C85258d9A00C01d00ded98065ea3840dF06f09c",
+    "OKXDEXRouter": "0x7c5bee2a8091c3ef39072f64f18fac913060aeaf",
+    "QuickSwapRouter": "0x4B9f4d2435Ef65559567e5DbFC1BbB37abC43B57"
+  }
+}
