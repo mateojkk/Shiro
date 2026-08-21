@@ -292,7 +292,7 @@ export const SwapTab: React.FC = () => {
           </div>
           <div className="flex justify-between text-shiro-muted">
             <span className="font-light">OKX DEX Router</span>
-            <span className="text-slate-300">{addresses.OKX_DEX_ROUTER.slice(0, 6)}...{addresses.OKX_DEX_ROUTER.slice(-4)}</span>
+            <span className="text-slate-300">{(addresses.OKX_DEX_ROUTER || "0x7c5bee2a8091c3ef39072f64f18fac913060aeaf").slice(0, 6)}...{(addresses.OKX_DEX_ROUTER || "0x7c5bee2a8091c3ef39072f64f18fac913060aeaf").slice(-4)}</span>
           </div>
         </div>
 

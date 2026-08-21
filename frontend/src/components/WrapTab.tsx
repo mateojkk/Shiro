@@ -245,7 +245,7 @@ export const WrapTab: React.FC = () => {
               rel="noopener noreferrer"
               className="text-slate-300 hover:text-okx flex items-center space-x-1"
             >
-              <span>{wokbAddress.slice(0, 6)}...{wokbAddress.slice(-4)}</span>
+              <span>{(wokbAddress || "0xe538905cf8414324e34195982505b3eb3d745670").slice(0, 6)}...{(wokbAddress || "0xe538905cf8414324e34195982505b3eb3d745670").slice(-4)}</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>

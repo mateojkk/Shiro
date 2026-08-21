@@ -650,10 +650,12 @@ export const TerminalChat: React.FC = () => {
                             <div className="flex items-center justify-between">
                               <span className="flex items-center gap-1">
                                 <Cpu className="w-3 h-3 text-[#555555]" />
-                                <span>Contract Target:</span>
+                                <span>Execution Target:</span>
                               </span>
                               <span className="text-[#999999]">
-                                {addresses.SHIRO_ROUTER.slice(0, 6)}...{addresses.SHIRO_ROUTER.slice(-4)}
+                                {m.intentData.intent.action === "WRAP" || m.intentData.intent.action === "UNWRAP"
+                                  ? `Canonical WOKB (${addresses.WOKB.slice(0, 6)}...${addresses.WOKB.slice(-4)})`
+                                  : `OKX DEX (${(addresses.OKX_DEX_ROUTER || "0x7c5bee2a8091c3ef39072f64f18fac913060aeaf").slice(0, 6)}...${(addresses.OKX_DEX_ROUTER || "0x7c5bee2a8091c3ef39072f64f18fac913060aeaf").slice(-4)})`}
                               </span>
                             </div>
                           </div>
