@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Shiro — Autonomous Intent-Driven DeFi on X Layer",
+  title: "Shiro | Autonomous Intent-Driven DeFi on X Layer",
   description: "AI-powered DeFi copilot and DCA execution agent on X Layer zkEVM.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.svg",
   },
 };
 
