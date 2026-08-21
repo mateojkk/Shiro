@@ -35,7 +35,15 @@ Action Types:
 3. "WRAP": Wrap native OKB into canonical ERC-20 WOKB (1:1 fixed rate).
 4. "UNWRAP": Unwrap WOKB into native gas OKB (1:1 fixed rate).
 5. "LIMIT_ORDER": Conditional limit order on OKX DEX.
-6. "PORTFOLIO_AUDIT": Analyze user's current holdings, risk exposure, and gas efficiency.
+6. "PORTFOLIO_AUDIT": Comprehensive onchain diagnostic of user's holdings, risk exposure, and gas runway on X Layer.
+
+Portfolio Audit Instructions:
+- When action is "PORTFOLIO_AUDIT", analyze the user's specific live balances (passed in the prompt as Balances: {...}) and wallet address.
+- Deliver a dynamic, insightful, and personalized analysis:
+  * Break down their exact token holdings and estimated USD worth based on reference prices (OKB: $48.5, WOKB: $48.5, USDC: $1.0, USDT: $1.0, WETH: $2650).
+  * Assess their gas readiness on X Layer zkEVM (calculate how many transactions their OKB balance can power at ~0.00005 OKB/tx).
+  * Provide 3 customized, actionable DeFi recommendations tailored specifically to their situation (e.g. wrapping OKB into WOKB 1:1, swapping stablecoins, rebalancing, or funding gas).
+  * Do not use markdown asterisks (no **) and do not use emojis. Keep the formatting clean, professional, and clear.
 
 Risk & Safety Evaluation Instructions:
 - "riskRating": Grade as "LOW", "MEDIUM", or "HIGH" based on asset volatility, slippage tolerance, liquidity depth, and execution complexity.
@@ -50,10 +58,10 @@ Risk & Safety Evaluation Instructions:
 You MUST respond strictly with a valid JSON object matching this schema:
 {
   "action": "SWAP" | "WRAP" | "UNWRAP" | "LIMIT_ORDER" | "PORTFOLIO_AUDIT" | "CHAT",
-  "summary": "Conversational reply or concise human-readable explanation of the plan",
-  "fromToken": "Symbol (e.g. OKB, WOKB, USDC, WETH, USDT) or null if CHAT",
-  "toToken": "Symbol (e.g. WOKB, OKB, USDC, WETH) or null if CHAT",
-  "amount": "Numeric string (e.g. '0.05') or null if CHAT",
+  "summary": "Conversational reply or structured clean diagnostic explanation of the plan (no ** or emojis)",
+  "fromToken": "Symbol (e.g. OKB, WOKB, USDC, WETH, USDT) or null if CHAT or PORTFOLIO_AUDIT",
+  "toToken": "Symbol (e.g. WOKB, OKB, USDC, WETH) or null if CHAT or PORTFOLIO_AUDIT",
+  "amount": "Numeric string (e.g. '0.05') or null if CHAT or PORTFOLIO_AUDIT",
   "slippageBps": integer (default 50 for 0.5%),
   "estimatedGasOKB": "0.0001",
   "riskRating": "LOW" | "MEDIUM" | "HIGH",
@@ -266,7 +274,13 @@ export async function POST(req: NextRequest) {
       const wethUsd = (parseFloat(weth) * 2650).toFixed(2);
       const totalUsd = (parseFloat(okbUsd) + parseFloat(wokbUsd) + parseFloat(usdc) + parseFloat(usdt) + parseFloat(wethUsd)).toFixed(2);
 
-      if (!parsedIntent.summary || parsedIntent.summary.length < 150 || parsedIntent.summary.includes("Since no balances were provided") || parsedIntent.summary.includes("no balances were provided")) {
+      if (parsedIntent.summary && parsedIntent.summary.length > 50 && !parsedIntent.summary.includes("Since no balances were provided")) {
+        // Clean markdown asterisks & emojis from Groq's dynamic response
+        parsedIntent.summary = parsedIntent.summary
+          .replace(/\*\*/g, "")
+          .replace(/[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, "")
+          .trim();
+      } else {
         parsedIntent.summary = `X Layer Portfolio Diagnostic & Risk Audit
 
 Wallet Address: ${userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : "Connected Wallet"}
