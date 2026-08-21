@@ -19,6 +19,16 @@ export const LandingHeader: React.FC = () => {
         {/* Navigation & Launch */}
         <div className="flex items-center space-x-4">
           <a
+            href="https://x.com/useshiro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:flex items-center space-x-1 text-xs text-shiro-muted hover:text-white transition-colors"
+          >
+            <span>Twitter</span>
+            <ExternalLink className="w-3 h-3 text-shiro-subtle" />
+          </a>
+
+          <a
             href="https://www.oklink.com/xlayer"
             target="_blank"
             rel="noopener noreferrer"

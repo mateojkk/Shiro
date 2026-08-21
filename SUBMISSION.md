@@ -60,7 +60,7 @@ Shiro eliminates DeFi friction on X Layer by introducing a conversational, inten
 
 ### Tweet Copy:
 ```text
-🚀 Excited to unveil Shiro (@ShiroAgent) for the @XLayerOfficial Build XHackathon AI Season!
+🚀 Excited to unveil Shiro (@useshiro) for the @XLayerOfficial Build XHackathon AI Season!
 
 Shiro is an autonomous, intent-based DeFi agent on X Layer zkEVM powered by @GroqInc AI inference & routed via @OKX DEX aggregator.
 

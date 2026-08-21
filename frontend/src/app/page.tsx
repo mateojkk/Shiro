@@ -225,24 +225,13 @@ export default function LandingPage() {
           </div>
 
           <div className="flex items-center space-x-6">
-            <Link href="/chat" className="hover:text-white transition-colors">
-              Copilot
-            </Link>
             <a
-              href="https://www.oklink.com/xlayer"
+              href="https://x.com/useshiro"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white transition-colors"
             >
-              OKLink Explorer
-            </a>
-            <a
-              href="https://www.okx.com/xlayer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              X Layer Official
+              Twitter
             </a>
           </div>
         </div>

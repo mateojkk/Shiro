@@ -7,7 +7,7 @@
 🔥 OPTION 1: OFFICIAL SUBMISSION ANNOUNCEMENT (Single Tweet - Copy & Paste)
 --------------------------------------------------------------------------------
 
-🚀 Excited to unveil Shiro (@ShiroAgent) for the @XLayerOfficial Build XHackathon AI Season!
+🚀 Excited to unveil Shiro (@useshiro) for the @XLayerOfficial Build XHackathon AI Season!
 
 Shiro is an autonomous, intent-based DeFi copilot on X Layer zkEVM powered by @GroqInc AI inference & routed via the @OKX DEX aggregator.
 
