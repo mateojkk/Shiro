@@ -4,15 +4,10 @@ import Link from "next/link";
 import { LandingHeader } from "@/components/LandingHeader";
 import {
   Zap,
-  ShieldCheck,
   RefreshCw,
   ArrowRight,
-  ExternalLink,
   MessageSquare,
-  Layers,
   PieChart,
-  CheckCircle2,
-  Sparkles,
 } from "lucide-react";
 
 export default function LandingPage() {
@@ -25,12 +20,6 @@ export default function LandingPage() {
       <section className="relative pt-20 sm:pt-28 pb-16 sm:pb-24 overflow-hidden w-full">
         <div className="w-full px-4 sm:px-8 lg:px-16 relative z-10">
           <div className="text-center max-w-4xl mx-auto space-y-6">
-            {/* Network Badge */}
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#111111] border border-white/[0.08] text-xs font-mono text-[#CCCCCC]">
-              <span className="w-2 h-2 rounded-full bg-okx animate-pulse"></span>
-              <span>Live on X Layer Mainnet (Chain ID: 196)</span>
-            </div>
-
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.12]">
               Autonomous <span className="font-medium text-white">Intent-Driven DeFi</span> on X Layer
@@ -40,27 +29,6 @@ export default function LandingPage() {
             <p className="text-base sm:text-lg lg:text-xl text-[#999999] font-light leading-relaxed max-w-3xl mx-auto">
               Execute instant DEX swaps, wrap native OKB with zero slippage, and run onchain portfolio audits through simple conversation. Powered by <span className="text-white font-medium">Groq LPUs</span> and routed via the <span className="text-white font-medium">OKX DEX Aggregator</span>.
             </p>
-
-            {/* Primary Action Buttons */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                href="/chat"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white hover:bg-slate-200 text-black font-medium text-sm transition-all flex items-center justify-center gap-2"
-              >
-                <span>Launch Shiro AI</span>
-                <ArrowRight className="w-4 h-4 text-black" />
-              </Link>
-
-              <a
-                href="https://www.oklink.com/xlayer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#111111] hover:bg-[#161616] text-[#888888] hover:text-white text-sm font-light transition-all flex items-center justify-center gap-2 border border-white/[0.06]"
-              >
-                <span>OKLink Explorer</span>
-                <ExternalLink className="w-3.5 h-3.5 text-[#666666]" />
-              </a>
-            </div>
           </div>
 
           {/* Interactive Terminal Mockup */}
@@ -205,7 +173,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-base font-medium text-white">1:1 OKB Wrapper</h3>
               <p className="text-xs text-[#888888] font-light leading-relaxed">
-                Seamlessly wrap and unwrap native OKB $\leftrightarrow$ WOKB (0xe538...9b2b) directly onchain with exact 1:1 conversion and 0% slippage.
+                Seamlessly wrap and unwrap native OKB ↔ WOKB (0xe538...9b2b) directly onchain with exact 1:1 conversion and 0% slippage.
               </p>
             </div>
 
