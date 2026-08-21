@@ -3,6 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
   useAccount,
+  useBalance,
+  useReadContract,
   useSendTransaction,
   useWriteContract,
   useWaitForTransactionReceipt,
@@ -26,7 +28,7 @@ import {
   Cpu,
   AlertTriangle
 } from "lucide-react";
-import { parseEther, parseUnits, createPublicClient, http, formatUnits } from "viem";
+import { parseEther, parseUnits, createPublicClient, http, formatUnits, formatEther } from "viem";
 import { CONTRACT_ADDRESSES, ERC20_ABI, SHIRO_ROUTER_ABI, WOKB_ABI, xlayerMainnet } from "@/config/xlayer";
 
 export interface IntentData {
@@ -114,6 +116,60 @@ export const TerminalChat: React.FC = () => {
   const { sendTransactionAsync } = useSendTransaction();
   const { writeContractAsync } = useWriteContract();
 
+  const balanceQuery = {
+    enabled: Boolean(address && isXLayer),
+    refetchInterval: 15000,
+    retry: 1,
+  };
+
+  const { data: okbBalance } = useBalance({
+    address,
+    chainId: activeChainId,
+    query: balanceQuery,
+  });
+
+  const { data: wokbRaw } = useReadContract({
+    chainId: activeChainId,
+    address: addresses.WOKB,
+    abi: ERC20_ABI,
+    functionName: "balanceOf",
+    args: address ? [address] : undefined,
+    query: balanceQuery,
+  });
+
+  const { data: usdcRaw } = useReadContract({
+    chainId: activeChainId,
+    address: addresses.USDC,
+    abi: ERC20_ABI,
+    functionName: "balanceOf",
+    args: address ? [address] : undefined,
+    query: balanceQuery,
+  });
+
+  const { data: usdtRaw } = useReadContract({
+    chainId: activeChainId,
+    address: addresses.USDT,
+    abi: ERC20_ABI,
+    functionName: "balanceOf",
+    args: address ? [address] : undefined,
+    query: balanceQuery,
+  });
+
+  const { data: wethRaw } = useReadContract({
+    chainId: activeChainId,
+    address: addresses.WETH,
+    abi: ERC20_ABI,
+    functionName: "balanceOf",
+    args: address ? [address] : undefined,
+    query: balanceQuery,
+  });
+
+  const formattedOkb = okbBalance ? parseFloat(formatEther(okbBalance.value)).toFixed(4) : "0.0000";
+  const formattedWokb = wokbRaw ? parseFloat(formatEther(wokbRaw)).toFixed(4) : "0.0000";
+  const formattedUsdc = usdcRaw ? parseFloat(formatUnits(usdcRaw, 6)).toFixed(2) : "0.00";
+  const formattedUsdt = usdtRaw ? parseFloat(formatUnits(usdtRaw, 6)).toFixed(2) : "0.00";
+  const formattedWeth = wethRaw ? parseFloat(formatUnits(wethRaw, 18)).toFixed(4) : "0.0000";
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentProcessStage, setCurrentProcessStage] = useState<string | null>(null);
@@ -157,6 +213,13 @@ export const TerminalChat: React.FC = () => {
           history: messages.slice(-6).map(m => ({ role: m.sender === "user" ? "user" : "assistant", content: m.content })),
           userAddress: address || "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49",
           chainId: activeChainId,
+          walletBalances: {
+            OKB: formattedOkb,
+            WOKB: formattedWokb,
+            USDC: formattedUsdc,
+            USDT: formattedUsdt,
+            WETH: formattedWeth,
+          },
         }),
       }).catch(() => null);
 

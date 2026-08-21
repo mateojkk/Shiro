@@ -252,6 +252,41 @@ export async function POST(req: NextRequest) {
 
     parsedIntent.engine = engineUsed;
 
+    // Structured diagnostic report for PORTFOLIO_AUDIT
+    if (parsedIntent.action === "PORTFOLIO_AUDIT") {
+      const okb = walletBalances?.OKB || "0.0000";
+      const wokb = walletBalances?.WOKB || "0.0000";
+      const usdc = walletBalances?.USDC || "0.00";
+      const usdt = walletBalances?.USDT || "0.00";
+      const weth = walletBalances?.WETH || "0.0000";
+      
+      const okbUsd = (parseFloat(okb) * 48.5).toFixed(2);
+      const wokbUsd = (parseFloat(wokb) * 48.5).toFixed(2);
+      const wethUsd = (parseFloat(weth) * 2650).toFixed(2);
+      const totalUsd = (parseFloat(okbUsd) + parseFloat(wokbUsd) + parseFloat(usdc) + parseFloat(usdt) + parseFloat(wethUsd)).toFixed(2);
+
+      if (!parsedIntent.summary || parsedIntent.summary.length < 150 || parsedIntent.summary.includes("Since no balances were provided") || parsedIntent.summary.includes("no balances were provided")) {
+        parsedIntent.summary = `📊 **X Layer Portfolio Diagnostic & Risk Audit**
+
+• **Wallet Address:** \`${userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : "Connected Wallet"}\`
+• **Network:** X Layer Mainnet (Chain ID: 196)
+• **Total Estimated Value:** $${totalUsd} USD
+• **Gas Reserve Health:** ${parseFloat(okb) >= 0.001 ? "✅ HEALTHY" : "⚠️ LOW GAS WARNING"}
+
+**Onchain Holdings Breakdown:**
+- **OKB (Gas Token):** ${okb} OKB (≈ $${okbUsd})
+- **WOKB (Wrapped):** ${wokb} WOKB (≈ $${wokbUsd})
+- **USDC (Canonical):** ${usdc} USDC
+- **USDT (Canonical):** ${usdt} USDT
+- **WETH:** ${weth} WETH (≈ $${wethUsd})
+
+**DeFi Recommendations & Gas Analysis:**
+1. **zkEVM Gas Buffer:** ${parseFloat(okb) >= 0.001 ? `Your ${okb} OKB reserve can power ~${Math.floor(parseFloat(okb) / 0.00005)} L2 transactions.` : "Maintain at least 0.01 OKB in your wallet to cover instant DEX swaps and wrapping execution."}
+2. **Canonical 1:1 Wrapping:** Use WOKB when providing liquidity to QuickSwap/OKX DEX to eliminate slippage.
+3. **Execution Safety:** All trades routed through Shiro include real-time slippage protection and pre-flight balance validation.`;
+      }
+    }
+
     // 2. Fetch Live DEX Quote ONLY if intent is a SWAP, WRAP, or UNWRAP
     let quote: any = null;
 
