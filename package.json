@@ -17,7 +17,7 @@
   },
   "keywords": ["x-layer", "okx", "ai-agent", "defi", "intent", "groq", "vercel", "hackathon"],
   "author": "Shiro Team",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
     "@nomicfoundation/hardhat-ethers": "^3.0.8",

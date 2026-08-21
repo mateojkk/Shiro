@@ -91,8 +91,3 @@ Try the live dApp on X Layer: https://github.com/mateo/Shiro
   * Navigate to "Portfolio" tab and demonstrate live token balance scanning, asset allocation breakdown, and 1-click MetaMask token watch.
 * **[1:45 - 2:00] Conclusion & X Layer Impact**:
   * "Shiro makes DeFi on X Layer as simple as natural language. Fast, non-custodial, and ready for production."
-
----
-
-## 📄 License
-MIT License. Built with ❤️ for the X Layer ecosystem.

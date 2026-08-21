@@ -151,8 +151,3 @@ npm run dev
 - [x] **X Layer Native Integration:** Connected directly to **X Layer Mainnet (Chain ID 196)**, OKLink explorer, and canonical ecosystem contracts.
 - [x] **OKX DEX Routing:** Programmatically integrated with the official OKX DEX aggregator interface (`chainIndex: 196`).
 - [x] **Non-Custodial Architecture:** 100% user custody with transparent transaction verification and signing.
-
----
-
-## 📄 License
-MIT License. Built with ❤️ for the X Layer ecosystem.

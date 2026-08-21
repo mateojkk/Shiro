@@ -44,7 +44,7 @@ Shiro extracts parameters, evaluates liquidity depth, scores risk (LOW/MED/HIGH)
 • Autonomous Portfolio Doctor (onchain balance scanning & risk analysis)
 • Pre-flight balance guardrails (zero wallet spam or failed txs)
 
-[Tweet 4/4 - Non-Custodial & Open Source]
+[Tweet 4/4 - Non-Custodial Security & Live Demo]
 🛡️ 100% Non-Custodial: You retain full custody of your keys and sign via MetaMask or OKX Wallet.
 
 Built for the @XLayerOfficial ecosystem with ❤️.
