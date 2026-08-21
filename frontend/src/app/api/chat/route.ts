@@ -142,15 +142,16 @@ function parseFallbackIntent(prompt: string) {
   if (p.includes("portfolio") || p.includes("audit") || p.includes("holding") || p.includes("balance")) {
     return {
       action: "PORTFOLIO_AUDIT",
-      summary: `📊 **X Layer Portfolio Diagnostic & Risk Report**
+      summary: `X Layer Portfolio Diagnostic & Risk Report
 
-• **Network:** X Layer Mainnet (Chain ID 196)
-• **Risk Rating:** LOW (Asset distribution & gas health analyzed)
-• **Gas Reserve Health:** Monitor your native OKB balance to maintain sufficient reserve for zkEVM L2 gas fees.
-• **DeFi Recommendations:**
-  1. Keep at least 0.01 OKB for network operations.
-  2. Utilize canonical WOKB (1:1) when participating in DEX pools.
-  3. Rebalance volatile assets (WETH) into stablecoins (USDC/USDT) during high market fluctuations.`,
+Network: X Layer Mainnet (Chain ID 196)
+Risk Rating: LOW (Asset distribution and gas health analyzed)
+Gas Reserve Health: Monitor your native OKB balance to maintain sufficient reserve for zkEVM L2 gas fees.
+
+DeFi Recommendations:
+1. Keep at least 0.01 OKB for network operations.
+2. Utilize canonical WOKB (1:1) when participating in DEX pools.
+3. Rebalance volatile assets (WETH) into stablecoins (USDC/USDT) during high market fluctuations.`,
       fromToken: null,
       toToken: null,
       amount: null,
@@ -266,24 +267,24 @@ export async function POST(req: NextRequest) {
       const totalUsd = (parseFloat(okbUsd) + parseFloat(wokbUsd) + parseFloat(usdc) + parseFloat(usdt) + parseFloat(wethUsd)).toFixed(2);
 
       if (!parsedIntent.summary || parsedIntent.summary.length < 150 || parsedIntent.summary.includes("Since no balances were provided") || parsedIntent.summary.includes("no balances were provided")) {
-        parsedIntent.summary = `📊 **X Layer Portfolio Diagnostic & Risk Audit**
+        parsedIntent.summary = `X Layer Portfolio Diagnostic & Risk Audit
 
-• **Wallet Address:** \`${userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : "Connected Wallet"}\`
-• **Network:** X Layer Mainnet (Chain ID: 196)
-• **Total Estimated Value:** $${totalUsd} USD
-• **Gas Reserve Health:** ${parseFloat(okb) >= 0.001 ? "✅ HEALTHY" : "⚠️ LOW GAS WARNING"}
+Wallet Address: ${userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : "Connected Wallet"}
+Network: X Layer Mainnet (Chain ID 196)
+Total Estimated Value: $${totalUsd} USD
+Gas Reserve Health: ${parseFloat(okb) >= 0.001 ? "HEALTHY" : "LOW GAS WARNING"}
 
-**Onchain Holdings Breakdown:**
-- **OKB (Gas Token):** ${okb} OKB (≈ $${okbUsd})
-- **WOKB (Wrapped):** ${wokb} WOKB (≈ $${wokbUsd})
-- **USDC (Canonical):** ${usdc} USDC
-- **USDT (Canonical):** ${usdt} USDT
-- **WETH:** ${weth} WETH (≈ $${wethUsd})
+Onchain Holdings Breakdown:
+- OKB (Gas Token): ${okb} OKB (~$${okbUsd})
+- WOKB (Wrapped): ${wokb} WOKB (~$${wokbUsd})
+- USDC: ${usdc} USDC
+- USDT: ${usdt} USDT
+- WETH: ${weth} WETH (~$${wethUsd})
 
-**DeFi Recommendations & Gas Analysis:**
-1. **zkEVM Gas Buffer:** ${parseFloat(okb) >= 0.001 ? `Your ${okb} OKB reserve can power ~${Math.floor(parseFloat(okb) / 0.00005)} L2 transactions.` : "Maintain at least 0.01 OKB in your wallet to cover instant DEX swaps and wrapping execution."}
-2. **Canonical 1:1 Wrapping:** Use WOKB when providing liquidity to QuickSwap/OKX DEX to eliminate slippage.
-3. **Execution Safety:** All trades routed through Shiro include real-time slippage protection and pre-flight balance validation.`;
+DeFi Recommendations & Gas Analysis:
+1. zkEVM Gas Buffer: ${parseFloat(okb) >= 0.001 ? `Your ${okb} OKB reserve can power ~${Math.floor(parseFloat(okb) / 0.00005)} L2 transactions.` : "Maintain at least 0.01 OKB in your wallet to cover instant DEX swaps and wrapping execution."}
+2. Canonical 1:1 Wrapping: Use WOKB when providing liquidity to QuickSwap / OKX DEX to eliminate slippage.
+3. Execution Safety: All trades routed through Shiro include real-time slippage protection and pre-flight balance validation.`;
       }
     }
 
