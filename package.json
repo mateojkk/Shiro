@@ -12,6 +12,8 @@
     "start": "npm --prefix frontend run start",
     "compile": "hardhat compile",
     "test": "hardhat test",
+    "test:features": "node test/e2e-feature-check.js",
+    "test:integration": "node test/integration.test.js",
     "deploy:testnet": "hardhat run scripts/deploy.ts --network xlayerTestnet",
     "deploy:mainnet": "hardhat run scripts/deploy.ts --network xlayerMainnet"
   },

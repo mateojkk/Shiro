@@ -224,6 +224,7 @@ export async function POST(req: NextRequest) {
           model,
           temperature: 0.2,
           response_format: { type: "json_object" },
+          signal: AbortSignal.timeout(12_000),
         });
 
         const rawContent = chatCompletion.choices[0]?.message?.content;

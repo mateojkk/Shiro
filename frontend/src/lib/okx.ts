@@ -1,6 +1,7 @@
 import crypto from "crypto";
 
 const OKX_BASE_URL = "https://web3.okx.com";
+const OKX_TIMEOUT_MS = 8_000;
 
 export type OkxRequestParams = Record<string, string>;
 
@@ -33,6 +34,7 @@ export async function okxGet(path: string, params: OkxRequestParams) {
       "OK-ACCESS-PASSPHRASE": passphrase,
     },
     cache: "no-store",
+    signal: AbortSignal.timeout(OKX_TIMEOUT_MS),
   });
 
   if (!response.ok) {
@@ -46,4 +48,3 @@ export async function okxGet(path: string, params: OkxRequestParams) {
 
   return payload.data;
 }
-

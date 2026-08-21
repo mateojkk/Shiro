@@ -133,6 +133,11 @@ export const SwapTab: React.FC = () => {
         ? (swapPayload.tx.to as `0x${string}`)
         : addresses.OKX_DEX_ROUTER;
       const dexData = (swapPayload?.tx?.data || "0x") as `0x${string}`;
+      if (dexData === "0x") {
+        setErrorMessage("A live swap quote is unavailable right now. No transaction was submitted; please try again.");
+        setIsSwapping(false);
+        return;
+      }
       const minToAmount = BigInt(0);
       
       const intentId = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
@@ -161,8 +166,8 @@ export const SwapTab: React.FC = () => {
           amountUnits,
           minToAmount,
           address,
-          swapPayload.tx.to,
-          swapPayload.tx.data,
+          dexTarget,
+          dexData,
         ],
       });
 
