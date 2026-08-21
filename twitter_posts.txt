@@ -1,30 +1,74 @@
-### Post 1: The Build Process & Testnet Launch (Thread)
-**Post 1/3:**
-Building Shiro for the OKX AI Season Hackathon has been an incredible deep-dive into intent-centric DeFi. Today, we are thrilled to announce that Shiro is officially live on the @XLayerOfficial Testnet! 🚀 
+================================================================================
+  SHIRO (白) — OFFICIAL X (TWITTER) POSTS & ANNOUNCEMENT THREADS
+  X Layer Build XHackathon (AI Season) — August 2026
+================================================================================
 
-**Post 2/3:**
-Our biggest architectural hurdle? Designing a non-custodial smart contract router (ShiroRouter) that can dynamically ingest complex DEX Aggregator calldata while gracefully handling testnet environment limitations. We engineered a seamless cross-decimal fallback mechanism to ensure 100% demo uptime. 🛠️
+--------------------------------------------------------------------------------
+🔥 OPTION 1: OFFICIAL SUBMISSION ANNOUNCEMENT (Single Tweet - Copy & Paste)
+--------------------------------------------------------------------------------
 
-**Post 3/3:**
-By combining the blazing-fast execution of X Layer with the reasoning capabilities of Groq’s LPU, we’ve created an AI Copilot that doesn't just read the market—it executes your exact intent on-chain. Try the testnet today! #OKXHackathon #Web3AI
+🚀 Excited to unveil Shiro (@ShiroAgent) for the @XLayerOfficial Build XHackathon AI Season!
 
-***
+Shiro is an autonomous, intent-based DeFi copilot on X Layer zkEVM powered by @GroqInc AI inference & routed via the @OKX DEX aggregator.
 
-### Post 2: The Current Stage (Highlighting the AI)
-We just finalized our submission for the OKX AI Season Hackathon! 🎉
+✨ Natural Language Swaps on X Layer Mainnet
+✨ 1:1 Fixed-Rate OKB ↔ WOKB Wrapper
+✨ Sub-300ms Intent Engine with Built-in Risk Matrix
+✨ 100% Non-Custodial Onchain Execution
 
-At its current stage, Shiro allows users to type natural language commands like "swap 0.01 okb to usdc" and instantly translates that into a hyper-optimized, gas-estimated on-chain transaction. 
+Try the live dApp on X Layer: https://github.com/mateojkk/Shiro
 
-No more confusing DEX interfaces or manual slippage calculations. The AI parses your intent, the ShiroRouter secures the funds, and @XLayerOfficial provides the lightning-fast settlement. The future of DeFi is conversational. 💬⚡ 
+#XLayer #BuildXHackathon #DeFAI #OKX #OKXDEX #Web3AI #zkEVM
 
-***
+--------------------------------------------------------------------------------
+🧵 OPTION 2: FULL LAUNCH THREAD (4-Part Deep Dive)
+--------------------------------------------------------------------------------
 
-### Post 3: The Future (Mainnet Vision)
-Shiro is live on the @XLayerOfficial Testnet today, but this is just the foundation. 🏗️
+[Tweet 1/4 - Hook & Overview]
+DeFi on L2 shouldn't feel like a cockpit of 20 tabs, manual slippage math, and fragmented routing.
 
-Our immediate roadmap for Mainnet includes:
-🤖 Automated DCA & Limit Orders directly from the chat terminal
-🔀 Full integration with the live OKX DEX Aggregator API for optimal routing
-🛡️ Advanced portfolio risk auditing 
+Meet Shiro (白) — your autonomous, intent-driven AI DeFi Copilot built natively on @XLayerOfficial zkEVM for the #BuildXHackathon! 🌪️⚡
 
-The goal? A fully autonomous DeFi co-pilot that manages your portfolio while you sleep. The X Layer ecosystem is about to get a lot smarter. Stay tuned for our Mainnet deployment! 🌐🔮
+Here's how Shiro turns natural language into atomic onchain execution 🧵👇
+
+[Tweet 2/4 - Sub-Second AI Intent Engine]
+🧠 Powered by @GroqInc LPUs, Shiro parses complex trading intents in <300ms.
+
+Type: "Swap 0.05 OKB into USDC with 0.5% slippage"
+Shiro extracts parameters, evaluates liquidity depth, scores risk (LOW/MED/HIGH), and queries the @OKX DEX Aggregator for the best route across X Layer liquidity.
+
+[Tweet 3/4 - Canonical Mainnet Protocols]
+⚡ Shiro executes directly on X Layer Mainnet (Chain ID: 196):
+• Instant Multi-Token Swaps ($OKB, $WOKB, $USDC, $USDT, $WETH)
+• Canonical 1:1 OKB Wrapper ($WOKB: 0xe538...9b2b) with 0% slippage
+• Autonomous Portfolio Doctor (onchain balance scanning & risk analysis)
+• Pre-flight balance guardrails (zero wallet spam or failed txs)
+
+[Tweet 4/4 - Non-Custodial & Open Source]
+🛡️ 100% Non-Custodial: You retain full custody of your keys and sign via MetaMask or OKX Wallet.
+
+Built for the @XLayerOfficial ecosystem with ❤️.
+
+🌐 GitHub & Live Demo: https://github.com/mateojkk/Shiro
+Let us know what you think below! 🚀
+
+#XLayer #BuildXHackathon #DeFAI #OKX #zkEVM #Groq #Web3AI
+
+--------------------------------------------------------------------------------
+💡 OPTION 3: COMMUNITY DEMO CALL (Short & Engaging)
+--------------------------------------------------------------------------------
+
+We built an AI agent that lets you trade on @XLayerOfficial just by talking to it. 
+
+No DEX menus. No manual slippage calculators. Just pure intent.
+
+⚡ Powered by @GroqInc on X Layer Mainnet.
+🔗 Check out the demo repo: https://github.com/mateojkk/Shiro
+
+Try prompts like:
+👉 "Swap 0.05 OKB into USDC"
+👉 "Wrap 0.1 OKB into WOKB"
+👉 "Audit my X Layer portfolio risk"
+
+What should Shiro automate next? 💭👇
+#BuildXHackathon #XLayer #DeFAI
