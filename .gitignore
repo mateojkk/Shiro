@@ -52,3 +52,9 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+# Local Video & Demo
+video/
+frontend/src/app/demo/
+frontend/src/components/video/
+demo.html
