@@ -30,7 +30,7 @@ Intent Classification Rules:
 - If Connected Wallet is "None (Wallet Not Connected)" or null:
   * NEVER invent, claim, or output a random wallet address.
   * Still classify explicit trade requests (e.g. "Swap 0.05 OKB into USDC", "Wrap 0.1 OKB into WOKB", "Unwrap 0.1 WOKB into OKB") as "SWAP", "WRAP", or "UNWRAP" so the user can preview the live quote before connecting their wallet.
-  * If the user asks for a portfolio audit while disconnected, inform them they can connect their wallet for live onchain balance scanning.
+  * If the user asks for a portfolio audit while disconnected, inform them they can connect their wallet for live onchain balance scanning, or give general X Layer asset guidance.
 - ONLY set action to "SWAP", "WRAP", "UNWRAP", "LIMIT_ORDER", or "PORTFOLIO_AUDIT" when the user provides an explicit, actionable request.
 
 Action Types:
