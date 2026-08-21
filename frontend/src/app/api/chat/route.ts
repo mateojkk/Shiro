@@ -25,12 +25,15 @@ X Layer Context:
 - Supported Tokens: OKB, WOKB, USDC, USDT, WETH.
 
 Intent Classification Rules:
-- If the user is chatting, saying hello, asking questions, or mentioning trading vaguely without providing both tokens and amounts (e.g. "hey, i need to swap", "hello", "what is X Layer?", "help me trade"), action MUST be "CHAT".
+- If the user is chatting, saying hello, asking questions, saying random words (e.g. "porto", "hey", "yo"), or mentioning trading vaguely without providing both tokens and amounts, action MUST be "CHAT".
   In CHAT mode, write a friendly conversational summary answering their question or asking what specific token pair and amount they wish to trade. Do NOT fabricate fake parameters or force an executable trade card.
-- ONLY set action to "SWAP", "WRAP", "UNWRAP", "LIMIT_ORDER", or "PORTFOLIO_AUDIT" when the user provides an explicit, actionable trade instruction.
+- If Connected Wallet is "None (Wallet Not Connected)" or null:
+  * NEVER invent, claim, or output a random wallet address.
+  * If the user asks for a portfolio audit while disconnected, inform them they can connect their wallet for live onchain balance scanning, or give general X Layer asset guidance.
+- ONLY set action to "SWAP", "WRAP", "UNWRAP", "LIMIT_ORDER", or "PORTFOLIO_AUDIT" when the user provides an explicit, actionable request.
 
 Action Types:
-1. "CHAT": General conversation, greeting, market question, or incomplete trade inquiry.
+1. "CHAT": General conversation, greeting, market question, slang, or incomplete trade inquiry.
 2. "SWAP": Instant token swap with explicit tokens and amounts on X Layer Mainnet via OKX DEX Aggregator.
 3. "WRAP": Wrap native OKB into canonical ERC-20 WOKB (1:1 fixed rate).
 4. "UNWRAP": Unwrap WOKB into native gas OKB (1:1 fixed rate).
@@ -38,22 +41,15 @@ Action Types:
 6. "PORTFOLIO_AUDIT": Comprehensive onchain diagnostic of user's holdings, risk exposure, and gas runway on X Layer.
 
 Portfolio Audit Instructions:
-- When action is "PORTFOLIO_AUDIT", analyze the user's specific live balances (passed in the prompt as Balances: {...}) and wallet address.
-- Deliver a dynamic, insightful, and personalized analysis:
-  * Break down their exact token holdings and estimated USD worth based on reference prices (OKB: $48.5, WOKB: $48.5, USDC: $1.0, USDT: $1.0, WETH: $2650).
-  * Assess their gas readiness on X Layer zkEVM (calculate how many transactions their OKB balance can power at ~0.00005 OKB/tx).
-  * Provide 3 customized, actionable DeFi recommendations tailored specifically to their situation (e.g. wrapping OKB into WOKB 1:1, swapping stablecoins, rebalancing, or funding gas).
-  * Do not use markdown asterisks (no **) and do not use emojis. Keep the formatting clean, professional, and clear.
+- When action is "PORTFOLIO_AUDIT", analyze the user's specific live balances and wallet address if connected.
+- If connected with balances, break down token holdings, gas runway, and provide 3 custom recommendations.
+- If not connected, give general X Layer portfolio management principles.
+- Do not use markdown asterisks (no **) and do not use emojis. Keep the formatting clean, professional, and clear.
 
 Risk & Safety Evaluation Instructions:
 - "riskRating": Grade as "LOW", "MEDIUM", or "HIGH" based on asset volatility, slippage tolerance, liquidity depth, and execution complexity.
 - "confidenceScore": Float between 0.0 and 1.0 indicating confidence in semantic interpretation and parameter extraction.
-- "safetyWarnings": List specific, actionable DeFi cautions including:
-  * Low liquidity warnings & pool depth risks
-  * Slippage recommendations and MEV/sandwich exposure
-  * Gas price spikes on zkEVM L2
-  * Contract approval & token allowance safety recommendations
-  * Portfolio concentration risks
+- "safetyWarnings": List specific, actionable DeFi cautions (e.g. liquidity, slippage, gas).
 
 You MUST respond strictly with a valid JSON object matching this schema:
 {
@@ -71,7 +67,7 @@ You MUST respond strictly with a valid JSON object matching this schema:
 `;
 
 function parseFallbackIntent(prompt: string) {
-  const p = prompt.toLowerCase();
+  const p = prompt.toLowerCase().trim();
   const hasNumber = /\b\d+(\.\d+)?\b/.test(prompt);
 
   // Wrap OKB -> WOKB
@@ -146,8 +142,10 @@ function parseFallbackIntent(prompt: string) {
     };
   }
 
-  // Explicit Portfolio Audit Request
-  if (p.includes("portfolio") || p.includes("audit") || p.includes("holding") || p.includes("balance")) {
+  // Explicit Portfolio Audit Request - require explicit phrases
+  const isExplicitAudit = p === "portfolio audit" || p === "audit" || p.includes("audit my portfolio") || p.includes("audit portfolio") || p.includes("audit my wallet") || p.includes("analyze my portfolio") || (p.includes("portfolio") && p.includes("audit"));
+
+  if (isExplicitAudit) {
     return {
       action: "PORTFOLIO_AUDIT",
       summary: `X Layer Portfolio Diagnostic & Risk Report
@@ -178,6 +176,8 @@ DeFi Recommendations:
     conversationalReply = "I can help you execute an instant swap on X Layer Mainnet. Which tokens and amount would you like to swap? (e.g. 'Swap 0.05 OKB into USDC')";
   } else if (p.includes("wrap")) {
     conversationalReply = "You can wrap native OKB into WOKB 1:1 with zero slippage. How much OKB would you like to wrap? (e.g. 'Wrap 0.1 OKB into WOKB')";
+  } else if (p.includes("how") || p.includes("what") || p.includes("why") || p.includes("who")) {
+    conversationalReply = "I am Shiro, an AI DeFi copilot on X Layer. I can parse natural language trades, execute 1:1 WOKB wrapping, and audit your onchain portfolio.";
   }
 
   return {
@@ -218,11 +218,11 @@ export async function POST(req: NextRequest) {
             ...history.map((h: any) => ({ role: h.role, content: h.content })),
             {
               role: "user",
-              content: `User Request: ${prompt}\nWallet Address: ${userAddress || "0x..."}\nBalances: ${JSON.stringify(walletBalances || {})}\nPlease respond with a JSON object.`,
+              content: `User Request: ${prompt}\nConnected Wallet: ${userAddress || "None (Wallet Not Connected)"}\nBalances: ${walletBalances ? JSON.stringify(walletBalances) : "None"}\nPlease respond with a JSON object.`,
             },
           ],
           model,
-          temperature: 0.1,
+          temperature: 0.2,
           response_format: { type: "json_object" },
         });
 

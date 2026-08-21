@@ -68,7 +68,8 @@ Shiro is an autonomous, intent-based DeFi agent on X Layer zkEVM powered by @Gro
 ✨ 1:1 Fixed-Rate OKB <-> WOKB Wrapper
 ✨ Sub-300ms Intent Engine with Built-in Risk Matrix
 
-Try the live dApp on X Layer: https://github.com/mateo/Shiro
+🌐 Live dApp: https://useshiro.vercel.app
+📁 GitHub: https://github.com/mateojkk/Shiro
 
 #XLayer #DeFAI #OKX #OKXDEX #Web3AI #BuildXHackathon
 ```

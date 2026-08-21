@@ -211,15 +211,17 @@ export const TerminalChat: React.FC = () => {
         body: JSON.stringify({
           prompt: text,
           history: messages.slice(-6).map(m => ({ role: m.sender === "user" ? "user" : "assistant", content: m.content })),
-          userAddress: address || "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49",
+          userAddress: address || null,
           chainId: activeChainId,
-          walletBalances: {
-            OKB: formattedOkb,
-            WOKB: formattedWokb,
-            USDC: formattedUsdc,
-            USDT: formattedUsdt,
-            WETH: formattedWeth,
-          },
+          walletBalances: address
+            ? {
+                OKB: formattedOkb,
+                WOKB: formattedWokb,
+                USDC: formattedUsdc,
+                USDT: formattedUsdt,
+                WETH: formattedWeth,
+              }
+            : null,
         }),
       }).catch(() => null);
 
