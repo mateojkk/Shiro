@@ -62,59 +62,46 @@ All interactions interface directly with official, battle-tested contracts on **
 
 ## 🧪 Rigorous Automated Testing
 
-Shiro includes comprehensive unit and live onchain integration test suites that execute with **zero gas costs**:
+Shiro includes comprehensive live onchain integration and feature verification test suites that execute against **X Layer Mainnet (`196`)** with **zero gas costs**:
 
-### 1. Smart Contract Unit Suite (`npx hardhat test`)
 ```bash
-npx hardhat test
+node test/e2e-feature-check.js
 ```
 ```
-  Shiro Protocol on X Layer - Comprehensive Suite
-    ShiroVault & Non-Custodial Session Keys
-      ✔ should allow user to deposit and withdraw ERC20 tokens
-      ✔ should allow user to deposit and withdraw native OKB
-      ✔ should enforce session key spend limits and expirations
-    ShiroRouter Intent Execution
-      ✔ should execute a direct swap and deliver tokens to recipient
-      ✔ should reject vault swaps from unauthorized callers
-      ✔ should reject unapproved DEX targets
-    ShiroDCA Recurring Intent Automation
-      ✔ should create, monitor, and execute DCA cycles autonomously
+===============================================================================
+       SHIRO COMPLETE END-TO-END FEATURE VERIFICATION SUITE (MAINNET 196)      
+===============================================================================
 
-  7 passing (1s)
-```
+--- 1. SYSTEM HEALTH & FRONTEND ROUTES ---
+• [HEALTH] Next.js dApp Landing (/) returns HTTP 200 OK             ... PASSED ✅
+• [HEALTH] Shiro AI Workspace (/chat) returns HTTP 200 OK           ... PASSED ✅
+• [HEALTH] System Health API (/api/health) returns healthy & Chain 196 ... PASSED ✅
 
-### 2. Live X Layer Mainnet Integration Suite (`node test/integration.test.js`)
-```bash
-node test/integration.test.js
-```
-```
-=================================================================
-  SHIRO PROTOCOL — X LAYER MAINNET INTEGRATION & API TEST SUITE   
-=================================================================
+--- 2. AI INTENT PARSER & RISK ENGINE (GROQ LPU) ---
+• [AI CHAT] Conversational greeting does not trigger trade card     ... PASSED ✅
+• [AI SWAP] Natural language swap parses tokens, amount & quote     ... PASSED ✅
+• [AI WRAP] Wrap prompt parses 1:1 fixed rate OKB -> WOKB           ... PASSED ✅
+• [AI UNWRAP] Unwrap prompt parses 1:1 fixed rate WOKB -> OKB       ... PASSED ✅
+• [AI RISK] High slippage prompt triggers risk warnings             ... PASSED ✅
 
---- 1. API HEALTH & STATUS SUITE ---
-• /api/health endpoint returns 200 OK & Mainnet chain        ... PASS
+--- 3. DEX SWAP ENGINE & ONCHAIN ENCODING ---
+• [DEX SWAP] ERC20 Approval calldata correctly encodes for OKX Router ... PASSED ✅
+• [DEX SWAP] Swap API (/api/swap) returns executable calldata       ... PASSED ✅
 
---- 2. AI INTENT & RISK CLASSIFICATION SUITE ---
-• Conversational prompt is classified as CHAT (no trade card) ... PASS
-• Vague swap inquiry is classified as CHAT asking for tokens ... PASS
-• Explicit Swap prompt parses tokens, amount, and route      ... PASS
-• High slippage prompt triggers risk rating & warnings        ... PASS
+--- 4. 1:1 OKB WRAPPER (ONCHAIN VERIFIED ON MAINNET 196) ---
+• [WRAP] WOKB Deposit calldata correctly encodes for native OKB wrap ... PASSED ✅
+• [WRAP] WOKB Withdraw calldata correctly encodes for native OKB unwrap ... PASSED ✅
+• [WRAP] Live Static Call: Query WOKB bytecode & total supply on Mainnet 196 ... PASSED ✅
 
---- 3. CANONICAL PROTOCOL ABI & CALLDATA SIMULATION SUITE ---
-• QuickSwap V3 exactInputSingle calldata encodes accurately  ... PASS
-• ERC-20 approve calldata encodes accurately for DEX pools   ... PASS
+--- 5. PORTFOLIO & ONCHAIN ASSET QUERIES ---
+• [PORTFOLIO] Live Static Call: Query USDC metadata on Mainnet 196  ... PASSED ✅
+• [PORTFOLIO] Live Static Call: Query USDT metadata on Mainnet 196  ... PASSED ✅
+• [PORTFOLIO] Live Static Call: Query WETH metadata on Mainnet 196  ... PASSED ✅
+• [PORTFOLIO] Live Static Call: Query wallet balance (zero gas cost) ... PASSED ✅
 
---- 4. LIVE X LAYER MAINNET RPC STATIC CALL SUITE (0 GAS) ---
-• Static Call: Query USDC contract on Mainnet 196            ... PASS
-• Static Call: Query WOKB contract on Mainnet 196            ... PASS
-• Static Call: Query WETH contract on Mainnet 196            ... PASS
-• Static Call: Query Mainnet 196 Block Number and Liveness   ... PASS
-
-=================================================================
-  RESULTS: 12 PASSED | 0 FAILED | TOTAL: 12
-=================================================================
+===============================================================================
+  FEATURE VERIFICATION SUMMARY: 17 PASSED | 0 FAILED | TOTAL: 17
+===============================================================================
 ```
 
 ---

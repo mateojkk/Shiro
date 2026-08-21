@@ -29,7 +29,8 @@ Intent Classification Rules:
   In CHAT mode, write a friendly conversational summary answering their question or asking what specific token pair and amount they wish to trade. Do NOT fabricate fake parameters or force an executable trade card.
 - If Connected Wallet is "None (Wallet Not Connected)" or null:
   * NEVER invent, claim, or output a random wallet address.
-  * If the user asks for a portfolio audit while disconnected, inform them they can connect their wallet for live onchain balance scanning, or give general X Layer asset guidance.
+  * Still classify explicit trade requests (e.g. "Swap 0.05 OKB into USDC", "Wrap 0.1 OKB into WOKB", "Unwrap 0.1 WOKB into OKB") as "SWAP", "WRAP", or "UNWRAP" so the user can preview the live quote before connecting their wallet.
+  * If the user asks for a portfolio audit while disconnected, inform them they can connect their wallet for live onchain balance scanning.
 - ONLY set action to "SWAP", "WRAP", "UNWRAP", "LIMIT_ORDER", or "PORTFOLIO_AUDIT" when the user provides an explicit, actionable request.
 
 Action Types:
@@ -212,20 +213,22 @@ export async function POST(req: NextRequest) {
     if (apiKey && apiKey.trim().length > 0) {
       try {
         const groq = new Groq({ apiKey });
-        const chatCompletion = await groq.chat.completions.create({
-          messages: [
-            { role: "system", content: `${INTENT_SYSTEM_PROMPT}\nAlways output a single valid JSON object.` },
-            ...history.map((h: any) => ({ role: h.role, content: h.content })),
-            {
-              role: "user",
-              content: `User Request: ${prompt}\nConnected Wallet: ${userAddress || "None (Wallet Not Connected)"}\nBalances: ${walletBalances ? JSON.stringify(walletBalances) : "None"}\nPlease respond with a JSON object.`,
-            },
-          ],
-          model,
-          temperature: 0.2,
-          response_format: { type: "json_object" },
-          signal: AbortSignal.timeout(12_000),
-        });
+        const chatCompletion = await groq.chat.completions.create(
+          {
+            messages: [
+              { role: "system", content: `${INTENT_SYSTEM_PROMPT}\nAlways output a single valid JSON object.` },
+              ...history.map((h: any) => ({ role: h.role, content: h.content })),
+              {
+                role: "user",
+                content: `User Request: ${prompt}\nConnected Wallet: ${userAddress || "None (Wallet Not Connected)"}\nBalances: ${walletBalances ? JSON.stringify(walletBalances) : "None"}\nPlease respond with a JSON object.`,
+              },
+            ],
+            model,
+            temperature: 0.2,
+            response_format: { type: "json_object" },
+          },
+          { signal: AbortSignal.timeout(12_000) }
+        );
 
         const rawContent = chatCompletion.choices[0]?.message?.content;
         if (rawContent) {
@@ -234,17 +237,25 @@ export async function POST(req: NextRequest) {
             const rawAction = (parsed.action || "CHAT").toUpperCase();
             const isTrulyActionable = ["SWAP", "WRAP", "UNWRAP", "LIMIT_ORDER", "PORTFOLIO_AUDIT"].includes(rawAction) && (rawAction === "PORTFOLIO_AUDIT" || (parsed.amount && parsed.fromToken));
 
+            const slippageBps = parsed.slippageBps || parsed.slippage_bps || 50;
+            const isHighRisk = slippageBps >= 200 || parseFloat(String(parsed.amount || parsed.from_amount || "0")) >= 100;
+            const riskRating = isHighRisk ? "HIGH" : (parsed.riskRating || "LOW");
+            const safetyWarnings = Array.isArray(parsed.safetyWarnings) ? [...parsed.safetyWarnings] : [];
+            if (isHighRisk && !safetyWarnings.some((w: string) => w.toLowerCase().includes("slippage"))) {
+              safetyWarnings.push("High slippage tolerance detected. Increased risk of price impact or MEV sandwiching.");
+            }
+
             parsedIntent = {
               action: isTrulyActionable ? rawAction : "CHAT",
               summary: parsed.summary || "Shiro AI Copilot: Ready to assist with DeFi operations on X Layer Mainnet.",
               fromToken: isTrulyActionable ? (parsed.fromToken || parsed.from_token) : null,
               toToken: isTrulyActionable ? (parsed.toToken || parsed.to_token) : null,
               amount: isTrulyActionable ? String(parsed.amount || parsed.from_amount) : null,
-              slippageBps: parsed.slippageBps || parsed.slippage_bps || 50,
+              slippageBps,
               estimatedGasOKB: parsed.estimatedGasOKB || "0.0001",
-              riskRating: parsed.riskRating || "LOW",
+              riskRating,
               confidenceScore: parsed.confidenceScore || 0.95,
-              safetyWarnings: parsed.safetyWarnings || [],
+              safetyWarnings,
             };
             engineUsed = `Groq LPU (${model})`;
           }
