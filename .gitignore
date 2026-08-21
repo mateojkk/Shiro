@@ -31,6 +31,7 @@ coverage.json
 */.env.local
 !.env.example
 !frontend/.env.example
+twitter_posts.txt
 
 # Python
 __pycache__/
