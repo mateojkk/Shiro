@@ -108,9 +108,6 @@ export const CONTRACT_ADDRESSES: Record<number, Record<string, `0x${string}`>> =
     USDC: "0x74b7f16337b8972027f6196a17a631ac6de26d22",
     USDT: "0x1E4a5963aBFD975d8c9021ce480b42188849D41d",
     WETH: "0x5a77f1443d16ee5761d310e38b62f77f726bc71c",
-    SHIRO_VAULT: "0xFCFE742e19790Dd67a627875ef8b45F17DB1DaC6",
-    SHIRO_ROUTER: "0x398E4948e373Db819606A459456176D31C3B1F91",
-    SHIRO_DCA: "0xbe18A1B61ceaF59aEB6A9bC81AB4FB87D56Ba167",
   },
 };
 
@@ -146,28 +143,4 @@ export const WOKB_ABI = parseAbi([
   "function withdraw(uint256 wad) external",
   "function balanceOf(address account) view returns (uint256)",
   "function approve(address spender, uint256 amount) returns (bool)"
-]);
-
-export const SHIRO_VAULT_ABI = parseAbi([
-  "function balances(address user, address token) view returns (uint256)",
-  "function deposit(address token, uint256 amount) external",
-  "function depositNative() external payable",
-  "function withdraw(address token, uint256 amount) external",
-  "function emergencyWithdraw(address token) external",
-  "function authorizeSession(address keeper, address token, uint256 maxSpend, uint256 durationSeconds) external",
-  "function revokeSession(address keeper, address token) external"
-]);
-
-export const SHIRO_ROUTER_ABI = parseAbi([
-  "function executeDirectSwap(bytes32 intentId, address fromToken, address toToken, uint256 fromAmount, uint256 minToAmount, address recipient, address dexTarget, bytes calldata dexData) external payable returns (uint256)",
-  "function executeVaultSwap(bytes32 intentId, address user, address fromToken, address toToken, uint256 fromAmount, uint256 minToAmount, bool returnToVault, address dexTarget, bytes calldata dexData) external returns (uint256)"
-]);
-
-export const SHIRO_DCA_ABI = parseAbi([
-  "function createDCAOrder(address fromToken, address toToken, uint256 amountPerCycle, uint256 totalCycles, uint256 intervalSeconds, uint256 maxSlippageBps, bool returnToVault) external returns (uint256)",
-  "function executeDCACycle(uint256 orderId, uint256 minToAmount, address dexTarget, bytes calldata dexData) external returns (uint256)",
-  "function cancelDCAOrder(uint256 orderId) external",
-  "function getUserOrderCount(address user) view returns (uint256)",
-  "function isOrderExecutable(uint256 orderId) view returns (bool)",
-  "function orders(uint256 orderId) view returns (uint256 id, address user, address fromToken, address toToken, uint256 amountPerCycle, uint256 totalCycles, uint256 executedCycles, uint256 intervalSeconds, uint256 nextExecutionTime, uint256 maxSlippageBps, bool isActive, bool returnToVault)"
 ]);

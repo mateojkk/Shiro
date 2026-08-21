@@ -29,7 +29,7 @@ import {
   AlertTriangle
 } from "lucide-react";
 import { parseEther, parseUnits, createPublicClient, http, formatUnits, formatEther } from "viem";
-import { CONTRACT_ADDRESSES, ERC20_ABI, SHIRO_ROUTER_ABI, WOKB_ABI, xlayerMainnet } from "@/config/xlayer";
+import { CONTRACT_ADDRESSES, ERC20_ABI, WOKB_ABI, xlayerMainnet } from "@/config/xlayer";
 
 export interface IntentData {
   intent: {
@@ -252,7 +252,7 @@ export const TerminalChat: React.FC = () => {
               `Parsed intent as ${intent.action} (${intent.amount} ${intent.fromToken} → ${intent.toToken})`,
               `Confidence score: ${(intent.confidenceScore * 100).toFixed(0)}% | Risk rating: ${intent.riskRating || "LOW"}`,
               `Live Route: OKX DEX Aggregator on X Layer (Impact: ${quote?.priceImpactPercent || "<0.02%"})`,
-              `Contract Router: ${addresses.SHIRO_ROUTER}`,
+              `Router: OKX DEX Aggregator (${addresses.OKX_DEX_ROUTER.slice(0, 6)}...${addresses.OKX_DEX_ROUTER.slice(-4)})`,
             ]
           : [
               `Analyzed query semantics using ${intent.engine || "Shiro Semantic Engine"}`,
@@ -419,7 +419,7 @@ export const TerminalChat: React.FC = () => {
               toTokenAddress: toAddr,
               amount: amountUnits.toString(),
               slippagePercent,
-              userWalletAddress: addresses.SHIRO_ROUTER,
+              userWalletAddress: address,
             }),
           });
           if (swapRes.ok) {
@@ -436,36 +436,23 @@ export const TerminalChat: React.FC = () => {
         if (dexData === "0x") {
           throw new Error("A live swap quote is unavailable right now. No transaction was submitted; please try again.");
         }
-        const minToAmount = BigInt(0);
-        const intentId = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
 
         if (!isNative) {
-          // Token swap: approve strictly on X Layer
+          // Token swap: approve strictly for DEX router on X Layer
           await writeContractAsync({
             chainId: activeChainId,
             address: tokenAddr as `0x${string}`,
             abi: ERC20_ABI,
             functionName: "approve",
-            args: [addresses.SHIRO_ROUTER, amountUnits],
+            args: [dexTarget, amountUnits],
           });
         }
 
-        hash = await writeContractAsync({
+        hash = await sendTransactionAsync({
           chainId: activeChainId,
-          address: addresses.SHIRO_ROUTER,
-          abi: SHIRO_ROUTER_ABI,
-          functionName: "executeDirectSwap",
+          to: dexTarget,
+          data: dexData,
           value: isNative ? amountUnits : BigInt(0),
-          args: [
-            intentId as `0x${string}`,
-            tokenAddr as `0x${string}`,
-            toAddr as `0x${string}`,
-            amountUnits,
-            minToAmount,
-            address,
-            dexTarget,
-            dexData,
-          ],
         });
       }
 

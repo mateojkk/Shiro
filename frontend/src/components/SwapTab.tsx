@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useAccount, useBalance, useSendTransaction, useWriteContract, useSwitchChain } from "wagmi";
 import { formatEther, parseEther, parseUnits, createPublicClient, http, formatUnits } from "viem";
 import { ArrowDown, Zap, RefreshCw, CheckCircle2, CircleDashed, ExternalLink, AlertTriangle } from "lucide-react";
-import { CONTRACT_ADDRESSES, ERC20_ABI, SHIRO_ROUTER_ABI, xlayerMainnet } from "@/config/xlayer";
+import { CONTRACT_ADDRESSES, ERC20_ABI, xlayerMainnet } from "@/config/xlayer";
 
 const TOKENS = [
   { symbol: "OKB", name: "OKB Native Gas", decimals: 18, isNative: true, priceUsd: 48.5 },
@@ -119,7 +119,7 @@ export const SwapTab: React.FC = () => {
             toTokenAddress: toAddr,
             amount: amountUnits.toString(),
             slippagePercent: slippage,
-            userWalletAddress: addresses.SHIRO_ROUTER,
+            userWalletAddress: address,
           }),
         });
         if (swapRes.ok) {
@@ -138,37 +138,23 @@ export const SwapTab: React.FC = () => {
         setIsSwapping(false);
         return;
       }
-      const minToAmount = BigInt(0);
-      
-      const intentId = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
 
       if (!fromToken.isNative) {
-        // Approve ERC20 strictly on X Layer
+        // Approve ERC20 strictly for the DEX router
         await writeContractAsync({
           chainId: activeChainId,
           address: tokenAddr as `0x${string}`,
           abi: ERC20_ABI,
           functionName: "approve",
-          args: [addresses.SHIRO_ROUTER, amountUnits],
+          args: [dexTarget, amountUnits],
         });
       }
 
-      hash = await writeContractAsync({
+      hash = await sendTransactionAsync({
         chainId: activeChainId,
-        address: addresses.SHIRO_ROUTER,
-        abi: SHIRO_ROUTER_ABI,
-        functionName: "executeDirectSwap",
+        to: dexTarget,
+        data: dexData,
         value: fromToken.isNative ? amountUnits : BigInt(0),
-        args: [
-          intentId as `0x${string}`,
-          tokenAddr as `0x${string}`,
-          toAddr as `0x${string}`,
-          amountUnits,
-          minToAmount,
-          address,
-          dexTarget,
-          dexData,
-        ],
       });
 
       setTxHash(hash);
@@ -305,8 +291,8 @@ export const SwapTab: React.FC = () => {
             <span className="text-white">OKX DEX → X Layer zkEVM</span>
           </div>
           <div className="flex justify-between text-shiro-muted">
-            <span className="font-light">Target Router</span>
-            <span className="text-slate-300">{addresses.SHIRO_ROUTER.slice(0, 6)}...{addresses.SHIRO_ROUTER.slice(-4)}</span>
+            <span className="font-light">OKX DEX Router</span>
+            <span className="text-slate-300">{addresses.OKX_DEX_ROUTER.slice(0, 6)}...{addresses.OKX_DEX_ROUTER.slice(-4)}</span>
           </div>
         </div>
 

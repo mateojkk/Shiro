@@ -8,14 +8,11 @@
   ],
   "scripts": {
     "dev": "npm --prefix frontend run dev",
-    "build": "npm run compile && npm --prefix frontend run build",
+    "build": "npm --prefix frontend run build",
     "start": "npm --prefix frontend run start",
-    "compile": "hardhat compile",
-    "test": "hardhat test",
+    "test": "node test/e2e-feature-check.js",
     "test:features": "node test/e2e-feature-check.js",
-    "test:integration": "node test/integration.test.js",
-    "deploy:testnet": "hardhat run scripts/deploy.ts --network xlayerTestnet",
-    "deploy:mainnet": "hardhat run scripts/deploy.ts --network xlayerMainnet"
+    "test:integration": "node test/integration.test.js"
   },
   "keywords": ["x-layer", "okx", "ai-agent", "defi", "intent", "groq", "vercel", "hackathon"],
   "author": "Shiro Team",
